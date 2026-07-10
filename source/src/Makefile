@@ -6,7 +6,7 @@
 # found to have been caused by the g++ compiler in the past. This seems to have
 # been fixed now by relaxing the optimization that g++ does, so although we'll
 # continue using clang++ (just in case), you can use g++ if you prefer.
-CXX=clang++
+CXX=g++
 
 # call like 'DEBUGBUILD=1 make' to compile a debug version of AssaultCube.
 ifdef DEBUGBUILD
@@ -39,6 +39,11 @@ ifneq (,$(findstring clang,$(CXX)))
 else
 	CXXFLAGS= -O3 -fomit-frame-pointer
 	override CXXFLAGS+= -Wall -fsigned-char -ffast-math -rdynamic -Wno-format-zero-length
+
+	ifneq ($(wildcard /usr/include/execinfo.h),)
+		override CXXFLAGS+= -DHAS_EXECINFO
+	endif
+
 	ifeq "$(shell expr 'gcc -dumpversion' \>= 8)" "1"
 		override CXXFLAGS+= -Wno-stringop-truncation
 	endif
