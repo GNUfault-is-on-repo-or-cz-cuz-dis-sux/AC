@@ -6,7 +6,7 @@
 # found to have been caused by the g++ compiler in the past. This seems to have
 # been fixed now by relaxing the optimization that g++ does, so although we'll
 # continue using clang++ (just in case), you can use g++ if you prefer.
-CXX=g++
+CXX=clang++
 
 # call like 'DEBUGBUILD=1 make' to compile a debug version of AssaultCube.
 ifdef DEBUGBUILD
